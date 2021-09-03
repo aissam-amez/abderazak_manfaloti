@@ -18,7 +18,7 @@ class _MyHomePageState extends State<MyHomePage> {
   late Future contents;
   ScrollController _scrollController = new ScrollController();
 
-  var end = 5;
+  int end = 5;
 
   @override
   void initState() {

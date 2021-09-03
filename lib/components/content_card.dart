@@ -2,8 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:abderazak_manfaloti/models/content.dart';
-import 'package:abderazak_manfaloti/components/video.dart';
+//import 'package:abderazak_manfaloti/components/video.dart';
 import 'package:abderazak_manfaloti/screens/article.dart';
+import 'package:abderazak_manfaloti/components/video_frame.dart';
 
 class ContentCard extends StatelessWidget {
   final Content content;
@@ -16,9 +17,16 @@ class ContentCard extends StatelessWidget {
     if (content.type == 'jpg' ||
         content.type == 'jpeg' ||
         content.type == 'png') {
-      fileWidget = InteractiveViewer(child: Image.network(content.file));
+      fileWidget = InteractiveViewer(
+          child: Image.network(content.file, loadingBuilder:
+              (context, child, progress) {
+        return progress == null ? child : LinearProgressIndicator();
+      }, errorBuilder:
+              (BuildContext context, Object exception, StackTrace? stackTrace) {
+        return Text("حدث خطأ في الصورة");
+      }));
     } else if (content.type == "mp4") {
-      fileWidget = MyVideo(video: content.file);
+      fileWidget = VideoFrame(video: content.file);
     }
 
     if (content.name == "article") {
